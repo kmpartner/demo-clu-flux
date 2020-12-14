@@ -77,7 +77,7 @@ spec:
         #nginx:
           #stableIngress: realtimeapp-ingress
       steps:
-      - setWeight: 20
+      - setWeight: 25
       - pause: {}
 ---
 apiVersion: v1
