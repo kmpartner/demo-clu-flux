@@ -15,13 +15,27 @@ spec:
       labels:
         app: redis
     spec:
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: poolname
+                operator: In
+                values:
+                - pool-mha803bmy-3v25e
+
       containers:
       - name: redis
         image: redis:4-32bit
         resources:
-          requests:
+          limits:
             cpu: 200m
             memory: 100Mi
+          requests:
+            cpu: 1m
+            memory: 1Mi            
         ports:
         - containerPort: 6379
 ---
@@ -54,6 +68,17 @@ spec:
       labels:
         app: realtime
     spec:
+
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: poolname
+                operator: In
+                values:
+                - pool-mha803bmy-3v25e  
+                  
       containers:
       - name: realtimeapp
         image: gbaeke/fluxapp:1.0.2
@@ -105,21 +130,21 @@ spec:
     targetPort: 8080
   selector:
     app: realtime
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: realtimeapp-ingress
-  annotations:
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/affinity: cookie
-    nginx.ingress.kubernetes.io/affinity-mode: persistent
-spec:
-  rules:
-  - host: real.baeke.info
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: realtimeapp-stable
-          servicePort: 80
+# ---
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: realtimeapp-ingress
+#   annotations:
+#     kubernetes.io/ingress.class: nginx
+#     nginx.ingress.kubernetes.io/affinity: cookie
+#     nginx.ingress.kubernetes.io/affinity-mode: persistent
+# spec:
+#   rules:
+#   - host: real.baeke.info
+#     http:
+#       paths:
+#       - path: /
+#         backend:
+#           serviceName: realtimeapp-stable
+#           servicePort: 80
