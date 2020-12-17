@@ -56,15 +56,15 @@ spec:
     spec:
       containers:
       - name: realtimeapp
-        # image: gbaeke/fluxapp:1.0.0
-        image: gbaeke/fluxapp:1.0.2
+        image: gbaeke/fluxapp:1.0.0
+        # image: gbaeke/fluxapp:1.0.2
         env:
         - name: REDISHOST
           value: "redisapp:6379"
         resources:
           requests:
-            cpu: 25m
-            memory: 50Mi
+            cpu: 1m
+            memory: 1Mi
           limits:
             cpu: 150m
             memory: 150Mi
@@ -72,6 +72,7 @@ spec:
         - containerPort: 8080
   strategy:
     blueGreen:
+      autoPromotionEnabled: false
       activeService: realtimeapp-active
       previewService: realtimeapp-preview
       prePromotionAnalysis:
