@@ -15,17 +15,6 @@ spec:
       labels:
         app: redis
     spec:
-
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #       - matchExpressions:
-      #         - key: poolname
-      #           operator: In
-      #           values:
-      #           - pool-mha803bmy-3v25e
-
       containers:
       - name: redis
         image: redis:4-32bit
@@ -67,21 +56,11 @@ spec:
     metadata:
       labels:
         app: realtime
-    spec:
-
-      # affinity:
-      #   nodeAffinity:
-      #     requiredDuringSchedulingIgnoredDuringExecution:
-      #       nodeSelectorTerms:
-      #       - matchExpressions:
-      #         - key: poolname
-      #           operator: In
-      #           values:
-      #           - pool-mha803bmy-3v25e  
-                  
+    spec:     
       containers:
       - name: realtimeapp
-        image: gbaeke/fluxapp:1.0.2
+        # image: gbaeke/fluxapp:1.0.2
+        image: gbaeke/fluxapp:1.0.0
         env:
         - name: REDISHOST
           value: "redisapp:6379"
