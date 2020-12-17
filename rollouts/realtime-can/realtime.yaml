@@ -69,15 +69,15 @@ spec:
         app: realtime
     spec:
 
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-            - matchExpressions:
-              - key: poolname
-                operator: In
-                values:
-                - pool-mha803bmy-3v25e  
+      # affinity:
+      #   nodeAffinity:
+      #     requiredDuringSchedulingIgnoredDuringExecution:
+      #       nodeSelectorTerms:
+      #       - matchExpressions:
+      #         - key: poolname
+      #           operator: In
+      #           values:
+      #           - pool-mha803bmy-3v25e  
                   
       containers:
       - name: realtimeapp
