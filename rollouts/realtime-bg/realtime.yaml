@@ -43,7 +43,7 @@ kind: Rollout
 metadata:
   name: realtimeapp
   labels:
-    app: realtime
+    app: realtime   
 spec:
   selector:
     matchLabels:
@@ -53,6 +53,8 @@ spec:
     metadata:
       labels:
         app: realtime
+      annotations:
+        linkerd.io/inject: enabled 
     spec:
       containers:
       - name: realtimeapp
